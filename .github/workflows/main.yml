@@ -21,7 +21,8 @@ jobs:
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         source: "./"  # This now correctly points to the current directory
-        target: "/project/nodejs-app"
+        target: "/project/nodejs-app/"
+        debug: true
 
     - name: Restart PM2 application
       uses: appleboy/ssh-action@master
@@ -30,5 +31,5 @@ jobs:
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd /project/nodejs-app
+          cd /project/nodejs-app/
           pm2 reload all  # This command restarts your application
