@@ -14,17 +14,7 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Deploy to AWS EC2
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.REMOTE_HOST }}
-        username: ${{ secrets.REMOTE_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: "./"  # This now correctly points to the current directory
-        target: "/project/nodejs-app/"
-        debug: true
-
-    - name: Restart PM2 application
+    - name: Deploy the application
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.REMOTE_HOST }}
@@ -32,4 +22,5 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd /project/nodejs-app/
+          git pull
           pm2 reload all  # This command restarts your application
