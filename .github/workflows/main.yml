@@ -10,11 +10,17 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
       - name: ssh and deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_KEY }}
-          source: "."
-          target: "project/nodejs-app"
+          script: |
+            cd project/nodejs-app
+            git pull
+            npm install
+            npm run build
+            pm2 restart app # Replace with your PM2 service name
