@@ -24,7 +24,7 @@ jobs:
           echo "$PRIVATE_KEY" > micro-aws.pem && chmod 600 micro-aws.pem
           ssh -o StrictHostKeyChecking=no -i micro-aws.pem ${username}@${host} '
 
-              cd /home/ubuntu/project &&
+              cd /home/ubuntu/project/nodejs-app &&
               git pull origin main &&
               sudo npm i &&
               pm2 reload all
