@@ -21,6 +21,4 @@ jobs:
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd /project/nodejs-app/
-          git pull
-          pm2 reload all  # This command restarts your application
+          cd /project/nodejs-app/ && git pull && pm2 reload all
