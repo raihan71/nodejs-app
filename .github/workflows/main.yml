@@ -20,5 +20,4 @@ jobs:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          cd /project/nodejs-app/ && git pull && pm2 reload all
+        run: cd /project/nodejs-app && git pull && pm2 reload all
