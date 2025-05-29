@@ -20,4 +20,12 @@ jobs:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        run: cd /project/nodejs-app && git pull && pm2 reload all
+        run: |
+          echo "$PRIVATE_KEY" > micro-aws.pem && chmod 600 micro-aws.pem
+          ssh -o StrictHostKeyChecking=no -i micro-aws.pem ${username}@${host} '
+
+              cd /home/ubuntu/project &&
+              git pull origin main &&
+              sudo npm i &&
+              pm2 reload all
+              '
