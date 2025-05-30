@@ -18,9 +18,10 @@ pipeline {
         sh '''
 
           # Ensure the application directory exists
-          mkdir -p $APP_DIR
-
-          cp -r * $APP_DIR
+          if [ ! -d "$APP_DIR" ]; then
+            echo "Creating application directory: $APP_DIR"
+            mkdir -p $APP_DIR
+          fi
           cd $APP_DIR
 
           # Get the latest code from the repository
