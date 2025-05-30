@@ -19,6 +19,6 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_SSH_KEY }}
           script: |
-            cd /project/nodejs-app
+            cd project/nodejs-app
             git pull
             pm2 restart all
