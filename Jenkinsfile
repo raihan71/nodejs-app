@@ -25,7 +25,7 @@ pipeline {
           cd $APP_DIR
 
           # Get the latest code from the repository
-          git pull
+          git pull origin main
 
           # Install Node.js dependencies
           npm install
