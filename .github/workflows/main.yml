@@ -1,0 +1,24 @@
+name: deploy-aws
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo codebase 🚀
+        uses: actions/checkout@v2
+      - name: Install dependencies codebase 💹
+        run: npm install
+      - name: Deploy to AWS 💹 + 🚀
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.AWS_SSH_KEY }}
+          script: |
+            cd /project/nodejs-app
+            git pull
+            pm2 restart all
