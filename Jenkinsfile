@@ -16,6 +16,11 @@ pipeline {
       steps {
         echo 'Installing dependencies... 🚀'
         sh '''
+
+          # Ensure the application directory exists
+          mkdir -p $APP_DIR
+
+          cp -r * $APP_DIR
           cd $APP_DIR
 
           # Get the latest code from the repository
