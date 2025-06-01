@@ -46,7 +46,7 @@ pipeline {
           npm install
 
           # Pull the latest code from the repository
-          git pull
+          git pull origin main
 
           npm run lint
 
