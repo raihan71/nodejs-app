@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = 4000;
-const apikey = '2o32o2kjs00-sdsd232323';
+const apikey = process.env.API_KEY || '';
 
 app.use(express.static(path.join(__dirname, 'public')));
 
