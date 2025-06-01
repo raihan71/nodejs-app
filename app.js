@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = 4000;
-const apikey = 'googlepai-key232323';
+const apikey = '2o32o2kjs00-sdsd232323';
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -11,7 +11,7 @@ app.listen(port, () => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Hello World!', apikey);
+  res.send('Hello World!', { data: apikey });
 });
 
 module.exports = app;
