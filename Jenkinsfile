@@ -37,7 +37,6 @@ pipeline {
         echo 'Installing dependencies... 🚀'
         sh '''
           # Install Node.js dependencies
-          npm install
         '''
       }
     }
@@ -52,6 +51,8 @@ pipeline {
             mkdir -p $APP_DIR
           fi
           cd $APP_DIR
+
+          npm install
 
           # Pull the latest code from the repository
           git pull
