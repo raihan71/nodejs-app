@@ -18,7 +18,7 @@ pipeline {
         echo 'Checking for secret leaks... 🔍'
         sh '''
           export PATH=$PATH:/usr/local/bin
-          git detect --source . --no-banner
+          gitleaks detect --source . --no-banner
         '''
       }
     }
