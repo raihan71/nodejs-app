@@ -13,18 +13,17 @@ jobs:
         with:
           fetch-depth: 0
       - name: Run Snyk Security Scan 🔍
-        uses: snyk/actions/nodejs@master
-        with:
-          command: |
-            monitor
+        uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
   deploy:
     runs-on: ubuntu-latest
     needs: security
     steps:
       - name: Checkout repo codebase 🚀
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Install dependencies codebase 💹
         run: npm install
       - name: Run tests codebase 💹
