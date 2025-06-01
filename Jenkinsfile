@@ -32,15 +32,6 @@ pipeline {
       }
     }
 
-    stage('Install dependencies') {
-      steps {
-        echo 'Installing dependencies... 🚀'
-        sh '''
-          # Install Node.js dependencies
-        '''
-      }
-    }
-
     stage('Deploy vps') {
       steps {
         echo 'Deploying to VPS... 🌐'
