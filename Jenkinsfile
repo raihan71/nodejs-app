@@ -17,6 +17,7 @@ pipeline {
       steps {
         echo 'Linting code... 📝'
         sh '''
+          npm ci
           # Run ESLint to check for code quality issues
           npx eslint . --ext .js,.jsx,.ts,.tsx || exit 1
         '''
