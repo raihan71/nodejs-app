@@ -38,5 +38,5 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
           script: |
             cd project/nodejs-app
-            git pull
-            npm run build
+            # git pull
+            # npm run build
