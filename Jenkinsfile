@@ -37,7 +37,7 @@ pipeline {
         echo 'Installing dependencies... 🚀'
         sh '''
           # Install Node.js dependencies
-          npm ci
+          npm install
         '''
       }
     }
