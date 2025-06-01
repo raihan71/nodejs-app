@@ -17,17 +17,8 @@ pipeline {
       steps {
         echo 'Linting code... 📝'
         sh '''
-          # Ensure the application directory exists
-          if [ ! -d "$APP_DIR" ]; then
-            echo "Creating application directory: $APP_DIR"
-            mkdir -p $APP_DIR
-          fi
-          cd $APP_DIR
-
-          git pull
-
           # Run ESLint to check for code quality issues
-          npm run lint
+          npx eslint . --ext .js,.jsx,.ts,.tsx || exit 1
         '''
       }
     }
