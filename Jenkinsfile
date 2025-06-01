@@ -9,14 +9,14 @@ pipeline {
     stage('Checkout codebase') {
       steps {
         echo 'Checking out codebase... ✅'
+        checkout scm
       }
     }
 
-    stage('Install dependencies') {
+    stage('Lint code quality') {
       steps {
-        echo 'Installing dependencies... 🚀'
+        echo 'Linting code... 📝'
         sh '''
-
           # Ensure the application directory exists
           if [ ! -d "$APP_DIR" ]; then
             echo "Creating application directory: $APP_DIR"
@@ -24,13 +24,56 @@ pipeline {
           fi
           cd $APP_DIR
 
-          # Get the latest code from the repository
-          git pull
+          # Run ESLint to check for code quality issues
+          npm run lint
+        '''
+      }
+    }
 
+    stage('Secret leak detection') {
+      steps {
+        echo 'Checking for secret leaks... 🔍'
+        sh '''
+          export PATH=$PATH:/usr/local/bin
+          git detect --source . --no-banner
+        '''
+      }
+    }
+
+    stage('Dependency vulnerability check') {
+      steps {
+        echo 'Checking for dependency vulnerabilities... 🔒'
+        sh '''
+          trivy fs . || exit 1
+        '''
+      }
+    }
+
+    stage('Install dependencies') {
+      steps {
+        echo 'Installing dependencies... 🚀'
+        sh '''
           # Install Node.js dependencies
           npm ci
+        '''
+      }
+    }
 
-          # Restarting the application
+    stage('Deploy vps') {
+      steps {
+        echo 'Deploying to VPS... 🌐'
+        sh '''
+          # Ensure the application directory exists
+          if [ ! -d "$APP_DIR" ]; then
+            echo "Creating application directory: $APP_DIR"
+            mkdir -p $APP_DIR
+          fi
+          cd $APP_DIR
+
+          # Pull the latest code from the repository
+          git pull
+
+          # Restart the application using PM2
           pm2 restart all || pm2 start app.js --name nodejs-app
           pm2 save
         '''
