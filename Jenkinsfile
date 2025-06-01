@@ -28,7 +28,7 @@ pipeline {
           git pull
 
           # Install Node.js dependencies
-          npm install
+          npm ci
 
           # Restarting the application
           pm2 restart all || pm2 start app.js --name nodejs-app
