@@ -4,6 +4,7 @@ const app = express();
 const port = 4000;
 const apikey = process.env.API_KEY || '';
 
+app.disable('x-powered-by');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(port, () => {
