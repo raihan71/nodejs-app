@@ -13,17 +13,6 @@ pipeline {
       }
     }
 
-    stage('Lint code quality') {
-      steps {
-        echo 'Linting code... 📝'
-        sh '''
-          npm ci
-          # Run ESLint to check for code quality issues
-          npx eslint . --ext .js,.jsx,.ts,.tsx || exit 1
-        '''
-      }
-    }
-
     stage('Secret leak detection') {
       steps {
         echo 'Checking for secret leaks... 🔍'
@@ -66,6 +55,8 @@ pipeline {
 
           # Pull the latest code from the repository
           git pull
+
+          npm run lint
 
           # Restart the application using PM2
           pm2 restart all || pm2 start app.js --name nodejs-app
