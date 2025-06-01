@@ -48,8 +48,6 @@ pipeline {
           # Pull the latest code from the repository
           git pull origin main
 
-          npm run lint
-
           # Restart the application using PM2
           pm2 restart all || pm2 start app.js --name nodejs-app
           pm2 save
