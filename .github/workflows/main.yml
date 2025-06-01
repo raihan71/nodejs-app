@@ -25,16 +25,27 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GIT_HUB_TOKEN }}
+  dependency:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo codebase 🚀
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install dependencies codebase 💹
+        run: npm install
+      - name: Run tests codebase 💹
+        run: npm ci
+      - name: Build codebase 💹 + 🚀
+        run: npm run test
   deploy:
     runs-on: ubuntu-latest
-    needs: security
+    needs: [security, dependency]
     steps:
       - name: Checkout repo codebase 🚀
         uses: actions/checkout@v4
       - name: Install dependencies codebase 💹
-        run: npm install
-      - name: Run tests codebase 💹
-        run: npm test
+        run: npm ci
       - name: Deploy to AWS 💹 + 🚀
         uses: appleboy/ssh-action@master
         with:
@@ -43,5 +54,5 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
           script: |
             cd project/nodejs-app
-            # git pull
-            # npm run build
+            git pull
+            npm run build
