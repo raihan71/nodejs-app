@@ -24,6 +24,8 @@ pipeline {
           fi
           cd $APP_DIR
 
+          git pull
+
           # Run ESLint to check for code quality issues
           npm run lint
         '''
